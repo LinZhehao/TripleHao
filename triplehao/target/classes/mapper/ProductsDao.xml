@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dbms.triplehao.dao.ProductsDao">
+    <select id="queryProduct" resultType="com.dbms.triplehao.entity.Products">
+        SELECT *
+        FROM Products
+    </select>
+    <select id="queryProductById" resultType="com.dbms.triplehao.entity.Products">
+        SELECT *
+        FROM Products
+        WHERE
+        product_id=#{productId}
+    </select>
+    <insert id="insertProduct" useGeneratedKeys="true" keyProperty="productId" keyColumn="product_id" parameterType="com.dbms.triplehao.entity.Products">
+        INSERT INTO
+        Products(name, price, inventory_amount, category)
+        VALUES
+        (#{name}, #{price}, #{inventoryAmount}, #{category})
+    </insert>
+    <update id="updatedProduct" parameterType="com.dbms.triplehao.entity.Products">
+        UPDATE Products
+        <set>
+            <if test="name!=null">name=#{name},</if>
+            <if test="price!=null">price=#{price},</if>
+            <if test="inventoryAmount!=null">inventory_amount=#{inventoryAmount},</if>
+            <if test="category!=null">category=#{category}</if>
+        </set>
+        WHERE product_id=#{productId}
+    </update>
+    <delete id="deleteProduct" >
+        DELETE FROM
+        Products
+        WHERE
+        product_id=#{productId}
+    </delete>
+</mapper>
